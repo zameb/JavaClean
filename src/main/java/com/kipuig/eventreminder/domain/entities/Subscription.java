@@ -1,4 +1,4 @@
-package com.kipuig.eventreminder.domain;
+package com.kipuig.eventreminder.domain.entities;
 
 import java.util.UUID;
 

@@ -1,5 +1,6 @@
-package com.kipuig.eventreminder.domain;
+package com.kipuig.eventreminder.domain.entities;
 
+import com.kipuig.eventreminder.domain.exceptions.PlanTypeSubscriptionsLimitException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -51,9 +52,9 @@ public class User {
         return subscriptions;
     }
 
-    public void addSubscription(Subscription subscription) {
-        if (planType == PlanType.FREE && subscriptions.size() >= 5) {
-            throw new IllegalStateException("El plan FREE no permite más de 5 subscripciones");
+    public void addSubscription(Subscription subscription) throws PlanTypeSubscriptionsLimitException {
+        if (planType.getMaxSubscriptions() > subscriptions.size()) {
+            throw new PlanTypeSubscriptionsLimitException(planType);
         }
         subscriptions.add(subscription);
     }
