@@ -4,23 +4,33 @@ import java.util.UUID;
 
 public class Subscription {
     private final UUID id;
-    private final String name;
+    private final User user;
+    private final Event event;
 
-    public Subscription(UUID id, String name) {
+    public Subscription(UUID id, User user, Event event) {
 
-        if (name == null) {
-            throw new IllegalArgumentException("Nombre inválido");
+        if (user == null) {
+            throw new IllegalArgumentException("Usuario inválido");
+        }
+
+        if (event == null) {
+            throw new IllegalArgumentException("Evento inválido");
         }
 
         this.id = id != null ? id : UUID.randomUUID();
-        this.name = name;
+        this.user = user;
+        this.event = event;
     }
 
     public UUID getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }
