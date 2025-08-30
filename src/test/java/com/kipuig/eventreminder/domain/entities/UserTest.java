@@ -1,8 +1,6 @@
-package com.kipuig.eventreminder.domain;
+package com.kipuig.eventreminder.domain.entities;
 
-import com.kipuig.eventreminder.domain.entities.User;
-import com.kipuig.eventreminder.domain.entities.Subscription;
-import com.kipuig.eventreminder.domain.entities.PlanType;
+import com.kipuig.eventreminder.domain.exceptions.PlanTypeSubscriptionsLimitException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,7 @@ public class UserTest {
 
         var user = new User(null, "t@e.com", "hash", planType, subscriptionList);
 
-        var exception = assertThrows(IllegalStateException.class,
+        var exception = assertThrows(PlanTypeSubscriptionsLimitException.class,
                 () -> user.addSubscription(new Subscription(null, "6"))
         );
 

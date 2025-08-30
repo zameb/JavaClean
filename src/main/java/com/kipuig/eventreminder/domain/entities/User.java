@@ -53,7 +53,7 @@ public class User {
     }
 
     public void addSubscription(Subscription subscription) throws PlanTypeSubscriptionsLimitException {
-        if (planType.getMaxSubscriptions() > subscriptions.size()) {
+        if (planType.getMaxSubscriptions() >= subscriptions.size()) {
             throw new PlanTypeSubscriptionsLimitException(planType);
         }
         subscriptions.add(subscription);
