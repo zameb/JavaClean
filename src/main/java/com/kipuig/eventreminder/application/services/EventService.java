@@ -1,23 +1,19 @@
 package com.kipuig.eventreminder.application.services;
 
-import com.kipuig.eventreminder.domain.entities.Event;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.kipuig.eventreminder.application.dtos.SearchEventsResponseDto;
+import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EventService {
-
-    public Event getEventById(UUID id) {
-        return new Event(null, "test", ZonedDateTime.now(ZoneId.of("UTC")));
+    private final EventRepository eventRepository;
+    
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
-    public List<Event> searchEventsByName(String searchText) {
-        return new ArrayList(List.of(
-                new Event(null, "test", ZonedDateTime.now(ZoneId.of("UTC")))
-        ));
+    public SearchEventsResponseDto searchEventsByName(String name) {
+        var events = eventRepository.searchEventsByName(name);
+        return SearchEventsResponseDto.fromDomain(events);
     }
 }

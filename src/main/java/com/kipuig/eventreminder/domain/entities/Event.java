@@ -13,4 +13,16 @@ public class Event {
         this.name = name;
         this.dateTime = dateTime;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ZonedDateTime getDateTime() {
+        return dateTime;
+    }
 }
