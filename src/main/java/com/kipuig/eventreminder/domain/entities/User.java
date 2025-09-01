@@ -1,5 +1,6 @@
 package com.kipuig.eventreminder.domain.entities;
 
+import com.kipuig.eventreminder.domain.exceptions.InvalidInitializationException;
 import com.kipuig.eventreminder.domain.exceptions.SubscriptionsLimitException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,12 @@ public class User {
     private final PlanType planType;
     private final List<Subscription> subscriptions;
 
-    public User(UUID id, String email, PlanType planType, List<Subscription> subscriptions) {
+    public User(UUID id, String email, PlanType planType, List<Subscription> subscriptions) throws InvalidInitializationException {
         if (email == null || !email.matches("^[^@]+@[^@]+\\.[^@]+$")) {
-            throw new IllegalArgumentException("Email inválido");
+            throw new InvalidInitializationException(User.class, "email must be valid and not null");
+        }
+        if (planType == null) {
+            throw new InvalidInitializationException(User.class, "planType cannot be null");
         }
 
         this.id = id != null ? id : UUID.randomUUID();
@@ -22,11 +26,11 @@ public class User {
         this.subscriptions = subscriptions != null ? subscriptions : new ArrayList<>();
     }
 
-    public User(UUID id, String email, PlanType planType) {
+    public User(UUID id, String email, PlanType planType) throws InvalidInitializationException {
         this(id, email, planType, new ArrayList<>());
     }
 
-    public User(String email, PlanType planType) {
+    public User(String email, PlanType planType) throws InvalidInitializationException {
         this(null, email, planType, new ArrayList<>());
     }
 

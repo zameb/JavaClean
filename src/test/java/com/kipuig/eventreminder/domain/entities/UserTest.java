@@ -1,5 +1,6 @@
 package com.kipuig.eventreminder.domain.entities;
 
+import com.kipuig.eventreminder.domain.exceptions.InvalidInitializationException;
 import com.kipuig.eventreminder.domain.exceptions.SubscriptionsLimitException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
 
     @Test
-    void freePlanShouldRejectSubscriptionsOutOfTheLimit() throws SubscriptionsLimitException {
+    void freePlanShouldRejectSubscriptionsOutOfTheLimit() throws InvalidInitializationException, SubscriptionsLimitException {
         var planType = new PlanType(null, "FREE", 3);
         var user = new User(null, "t@e.com", planType);
         var dateTime = ZonedDateTime.now(ZoneId.of("UTC"));

@@ -3,6 +3,7 @@ package com.kipuig.eventreminder.application.services;
 import com.kipuig.eventreminder.application.dtos.SearchEventsResponseDto;
 import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.domain.entities.Event;
+import com.kipuig.eventreminder.domain.exceptions.InvalidInitializationException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -25,7 +26,7 @@ public class EventServiceTest {
     }
 
     @Test
-    void searchEventsByName_shouldMapToDtoCorrectly() {
+    void searchEventsByName_shouldMapToDtoCorrectly() throws InvalidInitializationException {
         var id = UUID.randomUUID();
         var dateTime = ZonedDateTime.now(ZoneId.of("UTC"));
         var name = "Mi evento";
