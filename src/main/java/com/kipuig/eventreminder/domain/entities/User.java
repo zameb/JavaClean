@@ -50,10 +50,12 @@ public class User {
         return subscriptions;
     }
 
-    public void addSubscription(Subscription subscription) throws SubscriptionsLimitException {
+    public Subscription createSubscription(Event event) throws SubscriptionsLimitException {
+        var subscription = new Subscription(null, this, event);
         if (planType.getMaxSubscriptions() < this.subscriptions.size() + 1) {
             throw new SubscriptionsLimitException(planType);
         }
         subscriptions.add(subscription);
+        return subscription;
     }
 }

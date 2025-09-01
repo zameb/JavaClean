@@ -6,5 +6,6 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaEventRepository extends JpaRepository<EventEntity, UUID> {
+
     List<EventEntity> findByNameContainingIgnoreCase(String name);
 }

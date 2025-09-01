@@ -14,14 +14,14 @@ public class UserTest {
         var user = new User(null, "t@e.com", planType);
         var dateTime = ZonedDateTime.now(ZoneId.of("UTC"));
 
-        user.addSubscription(new Subscription(null, user, new Event(null, "Event 01", dateTime)));
-        user.addSubscription(new Subscription(null, user, new Event(null, "Event 02", dateTime)));
-        user.addSubscription(new Subscription(null, user, new Event(null, "Event 03", dateTime)));
+        user.createSubscription(new Event(null, "Event 01", dateTime));
+        user.createSubscription(new Event(null, "Event 02", dateTime));
+        user.createSubscription(new Event(null, "Event 03", dateTime));
 
-        var anotherSubscription = new Subscription(null, user, new Event(null, "Event 04", dateTime));
+        var anotherEvent = new Event(null, "Event 04", dateTime);
 
         var exception = assertThrows(SubscriptionsLimitException.class,
-                () -> user.addSubscription(anotherSubscription)
+                () -> user.createSubscription(anotherEvent)
         );
 
         assertFalse(exception.getMessage().isEmpty());
