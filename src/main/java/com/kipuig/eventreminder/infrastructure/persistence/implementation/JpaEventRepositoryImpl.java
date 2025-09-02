@@ -20,7 +20,7 @@ public class JpaEventRepositoryImpl implements EventRepository {
     @Override
     public Event getEventById(UUID id) {
         return jpaRepository.findById(id)
-                .map(e -> EventMapper.toDomain(e))
+                .map(event -> EventMapper.toDomain(event))
                 .orElse(null);
     }
 
