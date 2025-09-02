@@ -6,31 +6,31 @@ import java.util.UUID;
 public class Subscription {
 
     private final UUID id;
-    private final User user;
-    private final Event event;
+    private final UUID userId;
+    private final UUID eventId;
 
-    public Subscription(UUID id, User user, Event event) throws InvalidInitializationException {
-        if (user == null) {
+    public Subscription(UUID id, UUID userId, UUID eventId) throws InvalidInitializationException {
+        if (userId == null) {
             throw new InvalidInitializationException(Subscription.class, "user cannot be null");
         }
-        if (event == null) {
+        if (eventId == null) {
             throw new InvalidInitializationException(Subscription.class, "event cannot be null");
         }
 
         this.id = id != null ? id : UUID.randomUUID();
-        this.user = user;
-        this.event = event;
+        this.userId = userId;
+        this.eventId = eventId;
     }
 
     public UUID getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public Event getEvent() {
-        return event;
+    public UUID getEventId() {
+        return eventId;
     }
 }

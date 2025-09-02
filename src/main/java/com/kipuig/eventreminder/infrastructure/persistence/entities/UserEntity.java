@@ -1,10 +1,7 @@
 package com.kipuig.eventreminder.infrastructure.persistence.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.UUID;
 
@@ -14,18 +11,15 @@ public class UserEntity {
     @Id
     private UUID id;
     private String email;
-    
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "plan_type_id", referencedColumnName = "id")
-    private PlanTypeEntity planType;
+    private UUID planTypeId;
 
     protected UserEntity() {
     }
 
-    public UserEntity(UUID id, String email, PlanTypeEntity planType) {
+    public UserEntity(UUID id, String email, UUID planTypeId) {
         this.id = id;
         this.email = email;
-        this.planType = planType;
+        this.planTypeId = planTypeId;
     }
 
     public UUID getId() {
@@ -36,7 +30,7 @@ public class UserEntity {
         return email;
     }
 
-    public PlanTypeEntity getPlanType() {
-        return planType;
+    public UUID getPlanTypeId() {
+        return planTypeId;
     }
 }

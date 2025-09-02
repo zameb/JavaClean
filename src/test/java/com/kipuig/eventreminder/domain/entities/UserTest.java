@@ -2,26 +2,22 @@ package com.kipuig.eventreminder.domain.entities;
 
 import com.kipuig.eventreminder.domain.exceptions.InvalidInitializationException;
 import com.kipuig.eventreminder.domain.exceptions.SubscriptionsLimitException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     @Test
     void userShouldRejectSubscriptionsOutOfThePlanLimit() throws InvalidInitializationException, SubscriptionsLimitException {
-        var planType = new PlanType(null, "FREE", 3);
-        var user = new User(null, "t@e.com", planType);
-        var dateTime = ZonedDateTime.now(ZoneId.of("UTC"));
+        var maxSubscriptions = 3;
+        var user = new User(null, "t@e.com", UUID.randomUUID());
 
-        user.createSubscription(new Event(null, "Event 01", dateTime));
-        user.createSubscription(new Event(null, "Event 02", dateTime));
-        user.createSubscription(new Event(null, "Event 03", dateTime));
-
-        var anotherEvent = new Event(null, "Event 04", dateTime);
+        user.createSubscription(UUID.randomUUID(), maxSubscriptions);
+        user.createSubscription(UUID.randomUUID(), maxSubscriptions);
+        user.createSubscription(UUID.randomUUID(), maxSubscriptions);
 
         var exception = assertThrows(SubscriptionsLimitException.class,
-                () -> user.createSubscription(anotherEvent)
+                () -> user.createSubscription(UUID.randomUUID(), maxSubscriptions)
         );
 
         assertFalse(exception.getMessage().isEmpty());
@@ -31,7 +27,7 @@ public class UserTest {
     void userWithoutEmailIsRejected() {
         var planType = new PlanType(null, "FREE", 3);
         var exception = assertThrows(InvalidInitializationException.class,
-                () -> new User(null, planType)
+                () -> new User(null, planType.getId())
         );
 
         assertFalse(exception.getMessage().isEmpty());
@@ -41,7 +37,7 @@ public class UserTest {
     void userWithInvalidEmailIsRejected() {
         var planType = new PlanType(null, "FREE", 3);
         var exception = assertThrows(InvalidInitializationException.class,
-                () -> new User("invalid_email_value", planType)
+                () -> new User("invalid_email_value", planType.getId())
         );
 
         assertFalse(exception.getMessage().isEmpty());

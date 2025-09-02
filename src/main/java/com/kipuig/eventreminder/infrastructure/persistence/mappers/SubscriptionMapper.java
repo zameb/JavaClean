@@ -5,6 +5,6 @@ import com.kipuig.eventreminder.infrastructure.persistence.entities.Subscription
 
 public class SubscriptionMapper {
     public static SubscriptionEntity toDataEntity(Subscription sub) {
-        return new SubscriptionEntity(sub.getId(), sub.getUser().getId(), sub.getEvent().getId());
+        return new SubscriptionEntity(sub.getId(), sub.getUserId(), sub.getEventId());
     }
 }
