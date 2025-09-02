@@ -4,6 +4,8 @@ import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
 import com.kipuig.eventreminder.domain.entities.Subscription;
+import com.kipuig.eventreminder.domain.exceptions.EventNotFoundException;
+import com.kipuig.eventreminder.domain.exceptions.UserNotFoundException;
 import java.util.UUID;
 
 public class SubscriptionService {
@@ -11,7 +13,7 @@ public class SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
-    
+
     public SubscriptionService(
             SubscriptionRepository subscriptionRepository,
             UserRepository userRepository,
@@ -20,17 +22,14 @@ public class SubscriptionService {
         this.userRepository = userRepository;
         this.eventRepository = eventRepository;
     }
-    
-    public Subscription createSubscription(UUID userId, UUID eventId)
-    {
-        var user = userRepository.getUserById(userId);
-        if (user == null) {
-            return null;
-        }
-        var event = eventRepository.getEventById(eventId);
-        if (event == null) {
-            return null;
-        }
+
+    public Subscription createSubscription(UUID userId, UUID eventId) {
+        var user = userRepository.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        var event = eventRepository.getEventById(eventId)
+                .orElseThrow(() -> new EventNotFoundException(eventId));
+
         var subscription = user.createSubscription(event);
         subscriptionRepository.save(subscription);
         return subscription;

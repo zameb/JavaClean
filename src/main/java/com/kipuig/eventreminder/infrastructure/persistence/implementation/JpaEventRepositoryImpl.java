@@ -5,6 +5,7 @@ import com.kipuig.eventreminder.domain.entities.Event;
 import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaEventRepository;
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.EventMapper;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +19,9 @@ public class JpaEventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Event getEventById(UUID id) {
+    public Optional<Event> getEventById(UUID id) {
         return jpaRepository.findById(id)
-                .map(event -> EventMapper.toDomain(event))
-                .orElse(null);
+                .map(event -> EventMapper.toDomain(event));
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.kipuig.eventreminder.application.interfaces.UserRepository;
 import com.kipuig.eventreminder.domain.entities.User;
 import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaUserRepository;
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.UserMapper;
+import java.util.Optional;
 import java.util.UUID;
 
 public class JpaUserRepositoryImpl implements UserRepository {
@@ -15,10 +16,8 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserById(UUID id) {
-        var userEntity = jpaUserRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        return UserMapper.toDomain(userEntity);
+    public Optional<User> getUserById(UUID id) {
+        return jpaUserRepository.findById(id)
+                .map(user -> UserMapper.toDomain(user));
     }
 }
