@@ -29,4 +29,9 @@ public class JpaEventRepositoryImpl implements EventRepository {
         var events = jpaRepository.findByNameContainingIgnoreCase(name);
         return EventMapper.toDomain(events);
     }
+
+    @Override
+    public void save(Event event) {
+        jpaRepository.save(EventMapper.toPersistence(event));
+    }
 }

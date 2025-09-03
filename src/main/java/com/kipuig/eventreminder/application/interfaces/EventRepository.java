@@ -10,4 +10,6 @@ public interface EventRepository {
     Optional<Event> getEventById(UUID id);
 
     List<Event> searchEventsByName(String name);
+    
+    void save(Event event);
 }

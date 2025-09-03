@@ -3,7 +3,7 @@ package com.kipuig.eventreminder.application.services;
 import com.kipuig.eventreminder.application.interfaces.PlanTypeRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
-import com.kipuig.eventreminder.domain.entities.Subscription;
+import com.kipuig.eventreminder.domain.exceptions.PlanTypeNotFoundException;
 import com.kipuig.eventreminder.domain.exceptions.UserNotFoundException;
 import java.util.UUID;
 
@@ -22,15 +22,15 @@ public class SubscriptionService {
         this.planTypeRepository = planTypeRepository;
     }
 
-    public Subscription createSubscription(UUID userId, UUID eventId) {
+    public UUID createSubscription(UUID userId, UUID eventId) {
         var user = userRepository.getUserById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
         
         var planType = planTypeRepository.getPlanTypeById(user.getPlanTypeId())
-                .orElseThrow(() -> new UserNotFoundException(userId));
+                .orElseThrow(() -> new PlanTypeNotFoundException(user.getPlanTypeId()));
 
         var subscription = user.createSubscription(eventId, planType.getMaxSubscriptions());
         subscriptionRepository.save(subscription);
-        return subscription;
+        return subscription.getId();
     }
 }

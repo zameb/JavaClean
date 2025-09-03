@@ -6,6 +6,10 @@ import com.kipuig.eventreminder.infrastructure.persistence.entities.EventEntity;
 import java.util.List;
 
 public class EventMapper {
+    public static EventEntity toPersistence(Event event) {
+        return new EventEntity(event.getId(), event.getName(), event.getDateTime());
+    }
+    
     public static Event toDomain(EventEntity event) throws InvalidInitializationException {
         return new Event(event.getId(), event.getName(), event.getDateTime());
     }
