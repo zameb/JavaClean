@@ -9,7 +9,7 @@ While my primary expertise lies in the .NET stack, I believe it's core principle
     *   **[domain](src/main/java/com/kipuig/eventreminder/domain#readme)**
         *   entities
         *   exceptions
-    *   **application**
+    *   **[application](src/main/java/com/kipuig/eventreminder/application#readme)**
         *   services
         *   interfaces
         *   dtos
