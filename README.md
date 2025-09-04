@@ -38,4 +38,4 @@ If so, a user can create the event and share it with other users, or users could
 Each user will see the event in their own local time and can subscribe.
 
 *   [Prerequisites](prerequisites.md)
-*   [Clean Code Principles](cleaancode.md)
+*   [Clean Code Principles](cleancode.md)
