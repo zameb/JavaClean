@@ -7,32 +7,10 @@ import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "events")
-public class EventEntity {
-
-    @Id
-    private UUID id;
-    private String name;
-    private ZonedDateTime dateTime;
-
-    protected EventEntity() {
-    }
-
-    public EventEntity(UUID id, String name, ZonedDateTime dateTime) {
-        this.id = id;
-        this.name = name;
-        this.dateTime = dateTime;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ZonedDateTime getDateTime() {
-        return dateTime;
-    }
+@Table(name = "Event")
+public record EventEntity(
+        @Id
+        UUID id,
+        String name,
+        ZonedDateTime dateTime) {
 }

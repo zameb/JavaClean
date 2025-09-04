@@ -1,28 +1,16 @@
 package com.kipuig.eventreminder.infrastructure.persistence.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.UUID;
 
-public class PlanTypeEntity {
-    
-    private final UUID id;
-    private final String name;
-    private final int maxSubscriptions;
+@Entity
+@Table(name = "PlanType")
+public record PlanTypeEntity(
+        @Id
+        UUID id,
+        String name,
+        int maxSubscriptions) {
 
-    public PlanTypeEntity(UUID id, String name, int maxSubscriptions) {
-        this.id = id;
-        this.name = name;
-        this.maxSubscriptions = maxSubscriptions;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMaxSubscriptions() {
-        return maxSubscriptions;
-    }
 }

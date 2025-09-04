@@ -5,6 +5,6 @@ import com.kipuig.eventreminder.infrastructure.persistence.entities.PlanTypeEnti
 
 public class PlanTypeMapper {
     public static PlanType toDomain(PlanTypeEntity planType) {
-        return new PlanType(planType.getId(), planType.getName(), planType.getMaxSubscriptions());
+        return new PlanType(planType.id(), planType.name(), planType.maxSubscriptions());
     }
 }

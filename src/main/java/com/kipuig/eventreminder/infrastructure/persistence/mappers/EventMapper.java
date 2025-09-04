@@ -11,7 +11,7 @@ public class EventMapper {
     }
     
     public static Event toDomain(EventEntity event) throws InvalidInitializationException {
-        return new Event(event.getId(), event.getName(), event.getDateTime());
+        return new Event(event.id(), event.name(), event.dateTime());
     }
     
     public static List<Event> toDomain(List<EventEntity> events) {
