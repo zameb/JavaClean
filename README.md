@@ -4,6 +4,30 @@ This does not mean it is the single "correct" way to organize applications; on t
 
 While my primary expertise lies in the .NET stack, I believe it's core principles of clean architecture are highly transferable to Java.
 
+### Package Organization
+*   **eventreminder** (Root Package)
+    *   **[domain](src/main/java/com/kipuig/eventreminder/domain)**
+        *   entities
+        *   exceptions
+    *   **application**
+        *   services
+        *   interfaces
+        *   dtos
+        *   exceptions
+        *   mappers
+    *   **infrastructure**
+        *   **persistence**
+            *   interface
+            *   implementation
+            *   entities
+            *   mappers
+        *   email
+        *   logs
+    *   **presentation**
+        *   bootstrap
+        *   controllers
+        *   mappers
+
 ## Prerequisites
 - **JDK (Java Development Kit)**: Includes the Java compiler (javac), runtime, and development tools.
 - **NetBeans, IntelliJ IDEA Community, or another IDE**.
@@ -49,30 +73,6 @@ For example, the draw for the World Cup will take place on December 5, 2025, at 
 Would anyone be interested in watching that event live? 
 If so, a user can create the event and share it with other users, or users could search among existing events. 
 Each user will see the event in their own local time and can subscribe.
-
-### Package Organization
-*   **eventreminder** (Root Package)
-    *   **domain**
-        *   entities
-        *   exceptions
-    *   **application**
-        *   services
-        *   interfaces
-        *   dtos
-        *   exceptions
-        *   mappers
-    *   **infrastructure**
-        *   **persistence**
-            *   interface
-            *   implementation
-            *   entities
-            *   mappers
-        *   email
-        *   logs
-    *   **presentation**
-        *   bootstrap
-        *   controllers
-        *   mappers
 
 ## Clean Code Principles
 
