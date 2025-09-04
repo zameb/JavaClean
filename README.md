@@ -2,16 +2,16 @@
 This repository compiles clean architecture best practices applied to the Java ecosystem. 
 This does not mean it is the single "correct" way to organize applications; on the contrary, it is open to contributions and feedback that can make it better. 
 
-My primary stack is .NET, so I might miss some specific nuances, but I believe that, in general, years of knowledge in .NET and C# are highly transferable to the Java ecosystem.
+While my primary expertise lies in the .NET stack, I believe it's core principles of clean architecture are highly transferable to Java.
 
 ## Prerequisites
 - **JDK (Java Development Kit)**: Includes the Java compiler (javac), runtime, and development tools.
 - **NetBeans, IntelliJ IDEA Community, or another IDE**.
 
-## Install the JDK
+### Install the JDK
 There are different Java distributions:
 - **Oracle JDK**: Heavier, automatic installation in C:\, commercial restrictions.
-- **OpenJDK**: Binaries only, requires a very manual installation.
+- **OpenJDK**: Binaries only, requires installation.
 - **Temurin / Zulu**: OpenJDK + ready-to-use binaries, portable ZIP, free updates. Ideal for getting started and personal projects.
 
 The official Java site is Oracle, but for a lighter version that doesn't require a commercial license, it's better to install an OpenJDK like Zulu or Temurin.
@@ -25,7 +25,7 @@ If you download an installer, it will handle the system variables and the path. 
 2. Create the `JAVA_HOME` environment variable with the previous path.
 3. Add `%JAVA_HOME%\bin` to the system PATH.
 
-## NetBeans
+### NetBeans
 It is a lighter alternative to other IDEs and will be the primary one used in the examples.
 The installer or binaries can be obtained from:
 
@@ -33,7 +33,7 @@ https://netbeans.apache.org/front/main/download/
 
 After downloading, follow the installer steps.
 
-## Alternative: IntelliJ
+### Alternative: IntelliJ
 IntelliJ is a highly recommended IDE for Java application development, although it requires more hardware resources and can feel slow on some machines.
 
 Download the installer from:
@@ -42,19 +42,19 @@ https://www.jetbrains.com/idea/download/#section=windows
 Run it and follow the installation steps.
 
 ## Sample Application
-The sample application is called **Event Reminder**. Its objective is to register events that can later trigger notifications. It's functionality is very similar to a calendar but designed for sharing globally relevant events.
+The sample application is called **Event Reminder**. The main goal is to register events that can later trigger notifications. 
+It's functionality is very similar to a calendar but designed for sharing globally relevant events.
 
-For example, the draw for the World Cup will take place on December 5, 2025, at 12:00 pm local time in Washington. Would anyone be interested in watching that event live? If so, a user can create the event and share it with other users, or users could search among existing events. Each user will see the event in their own local time and can subscribe.
+For example, the draw for the World Cup will take place on December 5, 2025, at 12:00 pm local time in Washington. 
+Would anyone be interested in watching that event live? 
+If so, a user can create the event and share it with other users, or users could search among existing events. 
+Each user will see the event in their own local time and can subscribe.
 
-The source code is in the following repository:
-https://github.com/zameb/JavaClean
-
-## Package Organization
+### Package Organization
 *   **eventreminder** (Root Package)
-    *   **presentation**
-        *   bootstrap
-        *   controllers
-        *   mappers
+    *   **domain**
+        *   entities
+        *   exceptions
     *   **application**
         *   services
         *   interfaces
@@ -69,19 +69,26 @@ https://github.com/zameb/JavaClean
             *   mappers
         *   email
         *   logs
-    *   **domain**
-        *   entities
-        *   exceptions
-    *   **test**
-        *   integrationtest
-        *   architecturaltest
+    *   **presentation**
+        *   bootstrap
+        *   controllers
+        *   mappers
 
-## To create the project in NetBeans:
-1. Select **New Project** / **Java with Maven** / **Java Application**.
-2. Choose a name and path for the project. Example: `com.mycompany.eventreminder`.
+## Clean Code Principles
 
-This will create a project organized within a Java package: `com.mycompany.eventreminder`.
+While I am happy to adhere to team-specific rules in collaborative environments, the following principles guide this project's codebase:
 
-Maven acts as a process orchestrator. It is responsible for delegating compilation to javac, downloading dependencies, running tests, packaging, and running the application. Maven's configuration is registered in the `pom.xml` file.
-
-Gradle also exists as an alternative to Maven and is configured with `build.gradle` or `build.gradle.kts` files.
+*   **Small, Focused Methods**
+    *   Strive for methods that are concise and do one thing well. A method should be readable without scrolling.
+    *   Break long methods into smaller, private helper methods. This is a primary refactoring technique for improving readability.
+    *   **Watch for this signal:** A cluster of private methods often hints at a hidden responsibility or concept within your class. 
+        When you notice this, it's a strong candidate for extraction into its own class, reinforcing the Single Responsibility Principle (SRP).
+*   **Prefer Clear Code over Comments**
+    *   Code should be self-documenting. Avoid comments that simply restate what the code is doing (Don't Repeat Yourself - DRY).
+    *   Comments are not maintained by the compiler and can easily become outdated, leading to misinformation.
+    *   Comments clutters otherwise clean and concise classes. Express intent through clear naming and structure instead.
+*   **Use `var` for Improved Readability**
+    *   Use `var` for local variables whenever possible, not only when the type is obvious from the right-hand side of the assignment 
+        (e.g., `var user = userService.getUser(id);`). This emphasizes the *what* (a user) over the *how* (the specific implementation type) at a high level.
+    *   This practice encourages meaningful variable and method names. The context should make the usage without knowing the specific type.
+        High-level code benefits from hiding implementation details. The need for specific type information should naturally lead you to the method's implementation.
