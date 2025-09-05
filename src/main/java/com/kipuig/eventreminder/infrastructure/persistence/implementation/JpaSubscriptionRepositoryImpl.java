@@ -4,6 +4,8 @@ import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.domain.entities.Subscription;
 import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaSubscriptionRepository;
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.SubscriptionMapper;
+import java.util.Optional;
+import java.util.UUID;
 
 public class JpaSubscriptionRepositoryImpl implements SubscriptionRepository {
 
@@ -11,6 +13,12 @@ public class JpaSubscriptionRepositoryImpl implements SubscriptionRepository {
 
     public JpaSubscriptionRepositoryImpl(JpaSubscriptionRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
+    }
+
+    @Override
+    public Optional<Subscription> getSubscriptionById(UUID id) {
+        return jpaRepository.findById(id)
+                .map(subscription -> SubscriptionMapper.toDomain(subscription));
     }
 
     @Override

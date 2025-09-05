@@ -6,7 +6,9 @@ import com.kipuig.eventreminder.application.interfaces.UserRepository;
 import com.kipuig.eventreminder.domain.exceptions.PlanTypeNotFoundException;
 import com.kipuig.eventreminder.domain.exceptions.UserNotFoundException;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;

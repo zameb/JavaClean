@@ -20,4 +20,9 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return jpaUserRepository.findById(id)
                 .map(user -> UserMapper.toDomain(user));
     }
+
+    @Override
+    public void save(User user) {
+        jpaUserRepository.save(UserMapper.toDataEntity(user));
+    }
 }

@@ -21,6 +21,10 @@ public class Subscription {
         this.userId = userId;
         this.eventId = eventId;
     }
+    
+    public Subscription(UUID userId, UUID eventId) throws InvalidInitializationException {
+        this(null, userId, eventId);
+    }
 
     public UUID getId() {
         return id;

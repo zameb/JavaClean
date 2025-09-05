@@ -20,4 +20,9 @@ public class JpaPlanTypeRepositoryImpl implements PlanTypeRepository {
         return jpaRepository.findById(id)
                 .map(user -> PlanTypeMapper.toDomain(user));
     }
+
+    @Override
+    public void save(PlanType planType) {
+        jpaRepository.save(PlanTypeMapper.toDataEntity(planType));
+    }
 }

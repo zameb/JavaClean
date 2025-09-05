@@ -18,6 +18,10 @@ public class Event {
         this.name = name;
         this.dateTime = dateTime;
     }
+    
+    public Event(String name, ZonedDateTime dateTime) throws InvalidInitializationException {
+        this(null, name, dateTime);
+    }
 
     public UUID getId() {
         return id;

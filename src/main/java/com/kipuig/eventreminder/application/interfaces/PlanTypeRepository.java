@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface PlanTypeRepository {
     Optional<PlanType> getPlanTypeById(UUID id);
+
+    public void save(PlanType planType);
 }

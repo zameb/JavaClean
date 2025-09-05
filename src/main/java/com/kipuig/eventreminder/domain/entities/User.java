@@ -51,7 +51,7 @@ public class User {
     }
 
     public Subscription createSubscription(UUID eventId, int maxSubscriptions) throws SubscriptionsLimitException {
-        var subscription = new Subscription(null, getId(), eventId);
+        var subscription = new Subscription(getId(), eventId);
         if (maxSubscriptions < this.subscriptions.size() + 1) {
             throw new SubscriptionsLimitException(maxSubscriptions);
         }

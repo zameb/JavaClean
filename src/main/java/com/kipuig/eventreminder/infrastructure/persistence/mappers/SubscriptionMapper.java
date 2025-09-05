@@ -7,4 +7,8 @@ public class SubscriptionMapper {
     public static SubscriptionEntity toDataEntity(Subscription sub) {
         return new SubscriptionEntity(sub.getId(), sub.getUserId(), sub.getEventId());
     }
+    
+    public static Subscription toDomain(SubscriptionEntity sub) {
+        return new Subscription(sub.getId(), sub.getUserId(), sub.getEventId());
+    }
 }

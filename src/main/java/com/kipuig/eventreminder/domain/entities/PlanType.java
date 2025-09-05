@@ -21,6 +21,10 @@ public class PlanType {
         this.name = name;
         this.maxSubscriptions = maxSubscriptions;
     }
+    
+    public PlanType(String name, int maxSubscriptions) throws InvalidInitializationException {
+        this(null, name, maxSubscriptions);
+    }
 
     public UUID getId() {
         return id;
