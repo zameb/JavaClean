@@ -2,6 +2,8 @@
 This repository compiles clean architecture best practices applied to the Java ecosystem. 
 This does not mean it is the single "correct" way to organize applications; on the contrary, it is open to contributions and feedback that can make it better. 
 
+You can support my work if you wish: http://buymeacoffee.com/zameb
+
 While my primary expertise lies in the .NET stack, I believe it's core principles of clean architecture are highly transferable to Java.
 
 ### Package Organization

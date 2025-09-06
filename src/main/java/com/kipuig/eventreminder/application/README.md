@@ -9,10 +9,10 @@ This layer should only be aware of the domain and must remain completely agnosti
 This layer is responsible for the following:
 
 - **Use cases / Services**:
-  - **Users**: Register, Update, Delete, Recover password
-  - **Events**: Search, Create, Update, Delete, Subscribe
-  - **Subscriptions**: List, Delete
-  - **Plans**: Change plan
+  - **UserService**: Register, Update, Delete, Recover password
+  - **EventService**: Search, Create, Update, Delete, Subscribe
+  - **SubscriptionService**: List, Delete
+  - **PlanService**: Change plan
 - **Infrastructure interfaces**
 - **DTOs with immutable records**
 - **Application exceptions**

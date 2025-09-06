@@ -29,9 +29,10 @@ This means that the upper layers (the frontend and the interface layer) have fai
 
 Domain exceptions are semantically appropriate to interrupt the flow as soon as such a problem is detected.
 
-For example, the generic `IllegalStateException` may be adequate when the subscription limit has been reached, but it is even better to define a custom exception such as `SubscriptionLimitsException`.  
-This makes failures explicit and allows precise tracking.
-
 The Result Pattern, on the other hand, is suitable when we need to execute an alternative flow depending on the outcome of an operation.  
 In this case, the consumer of the result must know what to do, since this pattern delegates the responsibility of deciding how to handle it to the caller.  
 If there is no clear alternative flow, there is no point in implementing this pattern.
+
+A semantic and clear exception must be thrown. For example, the generic `IllegalStateException` may be adequate when the subscription limit has been reached, but it is even better to define a custom exception such as `SubscriptionLimitsException`.  
+This makes failures explicit and allows precise tracking.
+
