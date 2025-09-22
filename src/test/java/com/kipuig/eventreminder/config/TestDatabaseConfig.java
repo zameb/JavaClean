@@ -27,17 +27,17 @@ public class TestDatabaseConfig {
     public UserRepository userRepository(JpaUserRepository jpaUserRepository) {
         return new JpaUserRepositoryImpl(jpaUserRepository);
     }
-    
+
     @Bean
     public EventRepository eventRepository(JpaEventRepository jpaEventRepository) {
         return new JpaEventRepositoryImpl(jpaEventRepository);
     }
-    
+
     @Bean
     public PlanTypeRepository planTypeRepository(JpaPlanTypeRepository jpaPlanTypeRepository) {
         return new JpaPlanTypeRepositoryImpl(jpaPlanTypeRepository);
     }
-    
+
     @Bean
     public SubscriptionRepository subscriptionRepository(JpaSubscriptionRepository jpaSubscriptionRepository) {
         return new JpaSubscriptionRepositoryImpl(jpaSubscriptionRepository);

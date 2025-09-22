@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/subscriptions")
+@RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;
     

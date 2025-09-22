@@ -6,12 +6,15 @@ import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaSubscri
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.SubscriptionMapper;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JpaSubscriptionRepositoryImpl implements SubscriptionRepository {
 
     private final JpaSubscriptionRepository jpaRepository;
 
-    public JpaSubscriptionRepositoryImpl(JpaSubscriptionRepository jpaRepository) {
+    public JpaSubscriptionRepositoryImpl(@Lazy JpaSubscriptionRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 

@@ -6,12 +6,15 @@ import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaPlanTyp
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.PlanTypeMapper;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JpaPlanTypeRepositoryImpl implements PlanTypeRepository {
 
     private final JpaPlanTypeRepository jpaRepository;
 
-    public JpaPlanTypeRepositoryImpl(JpaPlanTypeRepository jpaRepository) {
+    public JpaPlanTypeRepositoryImpl(@Lazy JpaPlanTypeRepository jpaRepository) {
         this.jpaRepository = jpaRepository;
     }
 

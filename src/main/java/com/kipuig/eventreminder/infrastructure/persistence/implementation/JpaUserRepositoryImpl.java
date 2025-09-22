@@ -6,12 +6,15 @@ import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaUserRep
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.UserMapper;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JpaUserRepositoryImpl implements UserRepository {
 
     private final JpaUserRepository jpaUserRepository;
 
-    public JpaUserRepositoryImpl(JpaUserRepository jpaUserRepository) {
+    public JpaUserRepositoryImpl(@Lazy JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;
     }
 
