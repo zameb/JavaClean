@@ -3,7 +3,6 @@ package com.kipuig.eventreminder.application.services;
 import com.kipuig.eventreminder.application.interfaces.PlanTypeRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
-import com.kipuig.eventreminder.config.TestDatabaseConfig;
 import com.kipuig.eventreminder.domain.entities.Event;
 import com.kipuig.eventreminder.domain.entities.PlanType;
 import com.kipuig.eventreminder.domain.entities.User;
@@ -18,12 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Disabled;
 
-@SpringBootTest(classes = TestDatabaseConfig.class)
+@SpringBootTest()
 @ActiveProfiles("test")
 @Transactional
-@Disabled("Deshabilitado temporalmente - Error de configuración")
 public class SubscriptionServiceIntegrationTest {
 
     @Autowired
