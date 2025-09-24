@@ -5,7 +5,6 @@ import com.kipuig.eventreminder.application.dtos.CreateSubscriptionResponseDto;
 import com.kipuig.eventreminder.application.services.SubscriptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/subscriptions")
@@ -21,7 +20,7 @@ public class SubscriptionController {
     public ResponseEntity<CreateSubscriptionResponseDto> createSubscription(
             @RequestBody CreateSubscriptionRequestDto request) {
 
-        UUID subscriptionId = subscriptionService.createSubscription(
+        var subscriptionId = subscriptionService.createSubscription(
                 request.userId(),
                 request.eventId()
         );
