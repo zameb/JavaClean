@@ -5,6 +5,7 @@ import com.kipuig.eventreminder.application.dtos.SearchEventsResponseDto;
 import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.application.mappers.EventMapper;
 import java.util.UUID;
+import reactor.core.publisher.Mono;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +19,18 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public SearchEventsResponseDto searchEventsByName(String name) {
+    public Mono<SearchEventsResponseDto> searchEventsByName(String name) {
         log.info("Searching events by name: {}", name);
         var events = eventRepository.searchEventsByName(name);
-        return new SearchEventsResponseDto(EventMapper.toDto(events));
+        return events
+                .map(e -> EventMapper.toDto(e)).collectList()
+                .map(el -> new SearchEventsResponseDto(el));
     }
     
-    public UUID CreateEvent(EventDto eventDto) 
+    public Mono<UUID> CreateEvent(EventDto eventDto) 
     {
         var event = EventMapper.toDomain(eventDto);
-        eventRepository.save(event);
-        return event.getId();
+        return eventRepository.save(event)
+                .map(e -> e.getId());
     }
 }

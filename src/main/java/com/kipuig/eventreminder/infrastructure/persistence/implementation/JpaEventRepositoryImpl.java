@@ -10,6 +10,8 @@ import java.util.UUID;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 @Primary
@@ -22,19 +24,19 @@ public class JpaEventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public Optional<Event> getEventById(UUID id) {
+    public Mono<Event> getEventById(UUID id) {
         return jpaRepository.findById(id)
                 .map(event -> EventMapper.toDomain(event));
     }
 
     @Override
-    public List<Event> searchEventsByName(String name) {
+    public Flux<Event> searchEventsByName(String name) {
         var events = jpaRepository.findByNameContainingIgnoreCase(name);
         return EventMapper.toDomain(events);
     }
 
     @Override
-    public void save(Event event) {
-        jpaRepository.save(EventMapper.toPersistence(event));
+    public Mono<Event> save(Event event) {
+        return jpaRepository.save(EventMapper.toPersistence(event));
     }
 }

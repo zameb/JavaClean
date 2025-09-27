@@ -1,15 +1,12 @@
 package com.kipuig.eventreminder.application.interfaces;
 
 import com.kipuig.eventreminder.domain.entities.Event;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface EventRepository {
-
-    Optional<Event> getEventById(UUID id);
-
-    List<Event> searchEventsByName(String name);
-    
-    void save(Event event);
+    Mono<Event> getEventById(UUID id);
+    Flux<Event> searchEventsByName(String name);
+    Mono<Event> save(Event event);
 }
