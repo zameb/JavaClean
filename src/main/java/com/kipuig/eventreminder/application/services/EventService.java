@@ -27,6 +27,6 @@ public class EventService {
     public UUID CreateEvent(EventDto eventDto) 
     {
         var event = EventMapper.toDomain(eventDto);
-        return eventRepository.save(event);
+        return eventRepository.save(event).getId();
     }
 }

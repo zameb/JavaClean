@@ -1,5 +1,6 @@
 package com.kipuig.eventreminder.application.services;
 
+import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.application.interfaces.PlanTypeRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
@@ -27,6 +28,9 @@ public class SubscriptionServiceIntegrationTest {
     private SubscriptionService subscriptionService;
 
     @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -40,17 +44,13 @@ public class SubscriptionServiceIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        var planType = new PlanType("FREE", 3);
-        planTypeRepository.save(planType);
+        var planType = planTypeRepository.save(new PlanType("FREE", 3));
 
         var user = new User("test@test.com", planType);
-        userRepository.save(user);
-        userId = user.getId();
+        userId = userRepository.save(user).getId();
         
         var event = new Event("Evento importante", ZonedDateTime.now());
-        eventId = event.getId();
-
-        eventId = UUID.randomUUID();
+        eventId = eventRepository.save(event).getId();
     }
 
     @Test

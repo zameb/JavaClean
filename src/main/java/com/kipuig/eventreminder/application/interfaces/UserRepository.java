@@ -7,5 +7,5 @@ import java.util.UUID;
 public interface UserRepository {
     Optional<User> getUserById(UUID id);
 
-    public void save(User user);
+    public User save(User user);
 }

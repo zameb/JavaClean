@@ -40,7 +40,8 @@ public class JpaSubscriptionRepositoryImpl implements SubscriptionRepository {
     }
 
     @Override
-    public void save(Subscription subscription) {
-        jpaSubscriptionRepository.save(SubscriptionMapper.toDataEntity(subscription));
+    public Subscription save(Subscription subscription) {
+        var inserted = jpaSubscriptionRepository.save(SubscriptionMapper.toDataEntity(subscription));
+        return SubscriptionMapper.toDomain(inserted, subscription.getUser(), subscription.getEvent());
     }
 }

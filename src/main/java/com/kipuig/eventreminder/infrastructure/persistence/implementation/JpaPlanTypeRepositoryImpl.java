@@ -21,11 +21,12 @@ public class JpaPlanTypeRepositoryImpl implements PlanTypeRepository {
     @Override
     public Optional<PlanType> getPlanTypeById(UUID id) {
         return jpaRepository.findById(id)
-                .map(user -> PlanTypeMapper.toDomain(user));
+                .map(planType -> PlanTypeMapper.toDomain(planType));
     }
 
     @Override
-    public void save(PlanType planType) {
-        jpaRepository.save(PlanTypeMapper.toDataEntity(planType));
+    public PlanType save(PlanType planType) {
+        var inserted = jpaRepository.save(PlanTypeMapper.toDataEntity(planType));
+        return PlanTypeMapper.toDomain(inserted);
     }
 }

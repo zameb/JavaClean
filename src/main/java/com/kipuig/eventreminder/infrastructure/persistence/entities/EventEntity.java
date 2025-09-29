@@ -1,6 +1,7 @@
 package com.kipuig.eventreminder.infrastructure.persistence.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
@@ -11,6 +12,7 @@ import java.util.UUID;
 public class EventEntity {
     
     @Id
+    @GeneratedValue
     private UUID id;
     
     private String name;

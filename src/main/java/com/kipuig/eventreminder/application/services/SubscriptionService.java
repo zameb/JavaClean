@@ -1,11 +1,10 @@
 package com.kipuig.eventreminder.application.services;
 
 import com.kipuig.eventreminder.application.interfaces.EventRepository;
-import com.kipuig.eventreminder.application.interfaces.PlanTypeRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
+import com.kipuig.eventreminder.domain.entities.Subscription;
 import com.kipuig.eventreminder.domain.exceptions.EventNotFoundException;
-import com.kipuig.eventreminder.domain.exceptions.PlanTypeNotFoundException;
 import com.kipuig.eventreminder.domain.exceptions.UserNotFoundException;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class SubscriptionService {
                 .orElseThrow(() -> new EventNotFoundException(eventId));
 
         var subscription = user.createSubscription(event);
-        subscriptionRepository.save(subscription);
-        return subscription.getId();
+        var savedSubscription = subscriptionRepository.save(subscription);
+        return savedSubscription.getId();
     }
 }

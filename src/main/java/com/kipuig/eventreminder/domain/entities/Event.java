@@ -14,7 +14,7 @@ public class Event {
             throw new InvalidInitializationException(Event.class, "name cannot be null");
         }
         
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id;
         this.name = name;
         this.dateTime = dateTime;
     }

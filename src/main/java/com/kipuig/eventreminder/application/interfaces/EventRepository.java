@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface EventRepository {
     Optional<Event> getEventById(UUID id);
     List<Event> searchEventsByName(String name);
-    UUID save(Event event);
+    Event save(Event event);
 }

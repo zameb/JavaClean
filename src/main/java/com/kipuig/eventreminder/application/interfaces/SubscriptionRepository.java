@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface SubscriptionRepository {
     public Optional<Subscription> getSubscriptionById(UUID id);
-    public void save(Subscription subscription);
+    public Subscription save(Subscription subscription);
 }

@@ -34,8 +34,8 @@ public class JpaEventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public UUID save(Event event) {
+    public Event save(Event event) {
         var inserted = jpaRepository.save(EventMapper.toPersistence(event));
-        return inserted.getId();
+        return EventMapper.toDomain(inserted);
     }
 }

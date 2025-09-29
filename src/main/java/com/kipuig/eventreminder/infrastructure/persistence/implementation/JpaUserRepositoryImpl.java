@@ -33,7 +33,8 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
-        jpaUserRepository.save(UserMapper.toDataEntity(user));
+    public User save(User user) {
+        var inserted = jpaUserRepository.save(UserMapper.toDataEntity(user));
+        return UserMapper.toDomain(inserted, user.getPlanType());
     }
 }

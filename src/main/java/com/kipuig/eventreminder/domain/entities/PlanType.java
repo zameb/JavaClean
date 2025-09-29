@@ -17,7 +17,7 @@ public class PlanType {
             throw new InvalidInitializationException(PlanType.class, "maxSubscriptions must be >1");
         }
 
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id;
         this.name = name;
         this.maxSubscriptions = maxSubscriptions;
     }
