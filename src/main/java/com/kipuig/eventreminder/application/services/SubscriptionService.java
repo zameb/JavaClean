@@ -1,8 +1,10 @@
 package com.kipuig.eventreminder.application.services;
 
+import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.application.interfaces.PlanTypeRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
 import com.kipuig.eventreminder.application.interfaces.UserRepository;
+import com.kipuig.eventreminder.domain.exceptions.EventNotFoundException;
 import com.kipuig.eventreminder.domain.exceptions.PlanTypeNotFoundException;
 import com.kipuig.eventreminder.domain.exceptions.UserNotFoundException;
 import java.util.UUID;
@@ -13,25 +15,25 @@ public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserRepository userRepository;
-    private final PlanTypeRepository planTypeRepository;
+    private final EventRepository eventRepository;
 
     public SubscriptionService(
             SubscriptionRepository subscriptionRepository,
             UserRepository userRepository,
-            PlanTypeRepository planTypeRepository) {
+            EventRepository eventRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.userRepository = userRepository;
-        this.planTypeRepository = planTypeRepository;
+        this.eventRepository = eventRepository;
     }
 
     public UUID createSubscription(UUID userId, UUID eventId) {
         var user = userRepository.getUserById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
         
-        var planType = planTypeRepository.getPlanTypeById(user.getPlanTypeId())
-                .orElseThrow(() -> new PlanTypeNotFoundException(user.getPlanTypeId()));
+        var event = eventRepository.getEventById(eventId)
+                .orElseThrow(() -> new EventNotFoundException(eventId));
 
-        var subscription = user.createSubscription(eventId, planType.getMaxSubscriptions());
+        var subscription = user.createSubscription(event);
         subscriptionRepository.save(subscription);
         return subscription.getId();
     }

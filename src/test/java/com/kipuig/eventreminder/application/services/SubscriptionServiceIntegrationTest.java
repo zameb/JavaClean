@@ -36,16 +36,14 @@ public class SubscriptionServiceIntegrationTest {
     private SubscriptionRepository subscriptionRepository;
 
     private UUID userId;
-    private UUID planTypeId;
     private UUID eventId;
 
     @BeforeEach
     public void setUp() {
         var planType = new PlanType("FREE", 3);
         planTypeRepository.save(planType);
-        planTypeId = planType.getId();
 
-        var user = new User("test@test.com", planTypeId);
+        var user = new User("test@test.com", planType);
         userRepository.save(user);
         userId = user.getId();
         
@@ -63,7 +61,7 @@ public class SubscriptionServiceIntegrationTest {
         
         var savedSubscription = subscriptionRepository.getSubscriptionById(subscriptionId);
         assertNotNull(savedSubscription.isPresent());
-        assertEquals(userId, savedSubscription.get().getUserId());
-        assertEquals(eventId, savedSubscription.get().getEventId());
+        assertEquals(userId, savedSubscription.get().getUser().getId());
+        assertEquals(eventId, savedSubscription.get().getEvent().getId());
     }
 }

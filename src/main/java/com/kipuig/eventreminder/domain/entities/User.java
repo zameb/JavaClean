@@ -9,29 +9,29 @@ import java.util.UUID;
 public class User {
     private final UUID id;
     private final String email;
-    private final UUID planTypeId;
+    private final PlanType planType;
     private final List<Subscription> subscriptions;
 
-    public User(UUID id, String email, UUID planTypeId, List<Subscription> subscriptions) throws InvalidInitializationException {
+    public User(UUID id, String email, PlanType planType, List<Subscription> subscriptions) throws InvalidInitializationException {
         if (email == null || !email.matches("^[^@]+@[^@]+\\.[^@]+$")) {
             throw new InvalidInitializationException(User.class, "email must be valid and not null");
         }
-        if (planTypeId == null) {
-            throw new InvalidInitializationException(User.class, "planTypeId cannot be null");
+        if (planType == null) {
+            throw new InvalidInitializationException(User.class, "planType cannot be null");
         }
 
-        this.id = id != null ? id : UUID.randomUUID();
+        this.id = id;
         this.email = email;
-        this.planTypeId = planTypeId;
+        this.planType = planType;
         this.subscriptions = subscriptions != null ? subscriptions : new ArrayList<>();
     }
 
-    public User(UUID id, String email, UUID planTypeId) throws InvalidInitializationException {
-        this(id, email, planTypeId, new ArrayList<>());
+    public User(UUID id, String email, PlanType planType) throws InvalidInitializationException {
+        this(id, email, planType, new ArrayList<>());
     }
 
-    public User(String email, UUID planTypeId) throws InvalidInitializationException {
-        this(null, email, planTypeId, new ArrayList<>());
+    public User(String email, PlanType planType) throws InvalidInitializationException {
+        this(null, email, planType, new ArrayList<>());
     }
 
     public UUID getId() {
@@ -42,18 +42,18 @@ public class User {
         return email;
     }
 
-    public UUID getPlanTypeId() {
-        return planTypeId;
+    public PlanType getPlanType() {
+        return planType;
     }
 
     public List<Subscription> getSubscriptions() {
         return subscriptions;
     }
 
-    public Subscription createSubscription(UUID eventId, int maxSubscriptions) throws SubscriptionsLimitException {
-        var subscription = new Subscription(getId(), eventId);
-        if (maxSubscriptions < this.subscriptions.size() + 1) {
-            throw new SubscriptionsLimitException(maxSubscriptions);
+    public Subscription createSubscription(Event event) throws SubscriptionsLimitException {
+        var subscription = new Subscription(this, event);
+        if (this.planType.getMaxSubscriptions() < this.subscriptions.size() + 1) {
+            throw new SubscriptionsLimitException(this.planType.getMaxSubscriptions());
         }
         subscriptions.add(subscription);
         return subscription;

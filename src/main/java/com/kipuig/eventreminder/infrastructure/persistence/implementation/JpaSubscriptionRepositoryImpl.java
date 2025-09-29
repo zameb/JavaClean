@@ -1,6 +1,8 @@
 package com.kipuig.eventreminder.infrastructure.persistence.implementation;
 
+import com.kipuig.eventreminder.application.interfaces.EventRepository;
 import com.kipuig.eventreminder.application.interfaces.SubscriptionRepository;
+import com.kipuig.eventreminder.application.interfaces.UserRepository;
 import com.kipuig.eventreminder.domain.entities.Subscription;
 import com.kipuig.eventreminder.infrastructure.persistence.interfaces.JpaSubscriptionRepository;
 import com.kipuig.eventreminder.infrastructure.persistence.mappers.SubscriptionMapper;
@@ -12,20 +14,33 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JpaSubscriptionRepositoryImpl implements SubscriptionRepository {
 
-    private final JpaSubscriptionRepository jpaRepository;
+    private final JpaSubscriptionRepository jpaSubscriptionRepository;
+    private final UserRepository userRepository;
+    private final EventRepository eventRepository;
 
-    public JpaSubscriptionRepositoryImpl(@Lazy JpaSubscriptionRepository jpaRepository) {
-        this.jpaRepository = jpaRepository;
+    public JpaSubscriptionRepositoryImpl(
+            @Lazy JpaSubscriptionRepository jpaSubscriptionRepository,
+            @Lazy UserRepository userRepository,
+            @Lazy EventRepository eventRepository) {
+        this.jpaSubscriptionRepository = jpaSubscriptionRepository;
+        this.userRepository = userRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
     public Optional<Subscription> getSubscriptionById(UUID id) {
-        return jpaRepository.findById(id)
-                .map(subscription -> SubscriptionMapper.toDomain(subscription));
+    return jpaSubscriptionRepository.findById(id)
+        .flatMap(subscriptionEntity ->
+            userRepository.getUserById(subscriptionEntity.getUserId())
+                .flatMap(user ->
+                    eventRepository.getEventById(subscriptionEntity.getEventId())
+                        .map(event -> SubscriptionMapper.toDomain(subscriptionEntity, user, event))
+                )
+        );
     }
 
     @Override
     public void save(Subscription subscription) {
-        jpaRepository.save(SubscriptionMapper.toDataEntity(subscription));
+        jpaSubscriptionRepository.save(SubscriptionMapper.toDataEntity(subscription));
     }
 }

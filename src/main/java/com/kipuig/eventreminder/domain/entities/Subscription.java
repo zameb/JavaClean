@@ -6,35 +6,35 @@ import java.util.UUID;
 public class Subscription {
 
     private final UUID id;
-    private final UUID userId;
-    private final UUID eventId;
+    private final User user;
+    private final Event event;
 
-    public Subscription(UUID id, UUID userId, UUID eventId) throws InvalidInitializationException {
-        if (userId == null) {
+    public Subscription(UUID id, User user, Event event) throws InvalidInitializationException {
+        if (user == null) {
             throw new InvalidInitializationException(Subscription.class, "user cannot be null");
         }
-        if (eventId == null) {
+        if (event == null) {
             throw new InvalidInitializationException(Subscription.class, "event cannot be null");
         }
 
-        this.id = id != null ? id : UUID.randomUUID();
-        this.userId = userId;
-        this.eventId = eventId;
+        this.id = id;
+        this.user = user;
+        this.event = event;
     }
     
-    public Subscription(UUID userId, UUID eventId) throws InvalidInitializationException {
-        this(null, userId, eventId);
+    public Subscription(User user, Event event) throws InvalidInitializationException {
+        this(null, user, event);
     }
 
     public UUID getId() {
         return id;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public UUID getEventId() {
-        return eventId;
+    public Event getEvent() {
+        return event;
     }
 }
